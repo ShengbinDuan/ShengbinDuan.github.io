@@ -1,81 +1,399 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>Shengbin Duan - Homepage</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shengbin Duan · 段圣斌 — Homepage</title>
+
+  <!-- Webfont（系统优先，回退到本地中文字体） -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Shengbin Duan (段圣斌) — 脑机接口、时间序列、跨模态智能与机器人控制。" />
+  <meta property="og:title" content="Shengbin Duan · 段圣斌 — Homepage" />
+  <meta property="og:description" content="BCI (SSVEP/MI), Time Series, Cross-Modal Intelligence, Robotics Control." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/ShengbinDuan" />
+  <meta name="theme-color" content="#0f172a" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px auto;
-      max-width: 900px;
-      line-height: 1.6;
-      color: #333;
+    :root{
+      --bg: #0b1020;
+      --card: #0f172a;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --link: #60a5fa;
+      --accent: #7c3aed;
+      --accent-2: #22d3ee;
+      --ring: 0 0 0 3px rgba(124,58,237,.25);
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(2,6,23,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
-    h1, h2 {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 5px;
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f7f8fb;
+        --card: #ffffff;
+        --muted: #475569;
+        --text: #0f172a;
+        --link: #2563eb;
+        --accent: #7c3aed;
+        --accent-2: #0ea5e9;
+        --shadow: 0 14px 36px rgba(2,6,23,.08);
+      }
     }
-    a {
-      color: #0366d6;
-      text-decoration: none;
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
+        radial-gradient(1200px 600px at 90% 110%, rgba(14,165,233,.22), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      letter-spacing: .1px;
     }
-    a:hover {
-      text-decoration: underline;
+
+    /* 顶部导航 */
+    .nav{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to right, rgba(2,6,23,.85), rgba(2,6,23,.6));
+      border-bottom: 1px solid rgba(148,163,184,.18);
     }
-    .profile {
-      display: flex;
-      align-items: center;
+    .nav-inner{
+      max-width: 1100px; margin: 0 auto; padding: 14px 22px;
+      display:flex; align-items:center; gap:16px; justify-content:space-between;
     }
-    .profile img {
-      border-radius: 50%;
-      margin-right: 20px;
-      width: 120px;
-      height: 120px;
+    .brand{
+      display:flex; align-items:center; gap:12px; text-decoration:none;
+    }
+    .brand img{
+      width:44px;height:44px;border-radius:50%; border:2px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+    }
+    .brand .title{
+      font-weight: 900; font-size: 18px; color: var(--text); letter-spacing:.2px
+    }
+    .toc{
+      display:flex; flex-wrap:wrap; gap:14px;
+    }
+    .toc a{
+      color: var(--text); text-decoration: none; font-weight:600; opacity:.85;
+      padding:8px 12px; border-radius:10px; border:1px solid rgba(148,163,184,.18);
+      transition: all .2s ease;
+    }
+    .toc a:hover{ transform: translateY(-1px); box-shadow: var(--ring); color: white }
+
+    /* 容器与区块 */
+    .wrap{ max-width:1100px; margin:40px auto; padding: 0 22px 80px }
+    section{ margin: 28px 0 0 }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)) , var(--card);
+      border:1px solid rgba(148,163,184,.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+    .grid{ display:grid; gap:22px }
+    @media(min-width: 920px){ .grid-2{ grid-template-columns: 1.15fr .85fr } }
+    @media(min-width: 920px){ .grid-3{ grid-template-columns: repeat(3,1fr) } }
+
+    /* 头图 */
+    .hero{
+      display:grid; grid-template-columns: auto 1fr; gap:22px; align-items:center;
+      padding: 26px; border-radius: var(--radius); background: linear-gradient(135deg, rgba(124,58,237,.20), rgba(14,165,233,.20));
+      border:1px solid rgba(148,163,184,.24);
+    }
+    .hero img{ width:120px;height:120px; border-radius:50%; border:3px solid rgba(255,255,255,.65) }
+    .hero h1{ margin:0; font-size: clamp(26px, 3.2vw, 38px); line-height:1.2; font-weight: 900; letter-spacing:.3px }
+    .hero p{ margin:.2rem 0 0; color: var(--muted) }
+    .hero .quick a{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(148,163,184,.25); padding:8px 12px; border-radius:10px;
+      text-decoration:none; color:var(--text); background:rgba(255,255,255,.04);
+      transition:.2s; font-weight:600
+    }
+    .hero .quick a:hover{ transform: translateY(-1px); box-shadow: var(--ring) }
+
+    /* 标题 */
+    h2{
+      margin: 22px 0 14px; font-size: clamp(20px,2.2vw,26px);
+      font-weight: 900; letter-spacing:.2px; display:flex; align-items:center; gap:10px
+    }
+    h2 .dot{ width:10px;height:10px;border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 0 3px rgba(124,58,237,.25) }
+
+    /* 列表与徽章 */
+    ul{ margin: 10px 0 0; padding-left: 20px }
+    li{ margin: 8px 0; }
+    b,strong{ font-weight: 800 }
+    a{ color: var(--link); text-decoration: none }
+    a:hover{ text-decoration: underline }
+    .badge{
+      display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:700;
+      background: linear-gradient(90deg, rgba(124,58,237,.18), rgba(14,165,233,.18));
+      border:1px solid rgba(148,163,184,.25); color: var(--text)
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
+      background: rgba(148,163,184,.14); border:1px solid rgba(148,163,184,.25); font-size:12px; font-weight:700
+    }
+
+    /* 时间轴 */
+    .timeline{ position:relative; padding-left:20px }
+    .timeline::before{
+      content:""; position:absolute; left:9px; top:0; bottom:0; width:2px;
+      background: linear-gradient(var(--accent), var(--accent-2));
+      opacity:.6
+    }
+    .t-item{ position:relative; padding-left:18px; margin:18px 0 }
+    .t-item::marker{content:""}
+    .t-item::before{
+      content:""; position:absolute; left:-1px; top:7px; width:14px; height:14px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent)); box-shadow: 0 0 0 3px rgba(124,58,237,.25)
+    }
+    .t-item .when{ font-family: var(--mono); font-size: 12px; color: var(--muted) }
+
+    /* 图廊 */
+    .gallery{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)) }
+    .gallery img{
+      width:100%; height: 180px; object-fit: cover; border-radius:14px;
+      border:1px solid rgba(148,163,184,.25); transition:.25s; filter:saturate(1.05) contrast(1.02)
+    }
+    .gallery img:hover{ transform: translateY(-2px) scale(1.01) }
+
+    /* 页脚 */
+    footer{ margin: 44px 0 0; color: var(--muted); font-size: 14px; text-align:center }
+
+    /* 小屏优化 */
+    @media (max-width: 640px){
+      .nav-inner{ gap:10px }
+      .toc{ display:none } /* 手机端自动隐藏顶部目录，节省空间 */
+      .hero{ grid-template-columns: 1fr; text-align:center }
+      .hero .quick{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px }
     }
   </style>
 </head>
 <body>
 
-  <div class="profile">
-    <img src="https://avatars.githubusercontent.com/ShengbinDuan" alt="Profile photo">
-    <div>
-      <h1>Shengbin Duan (段圣斌)</h1>
-      <p>Email: <a href="mailto:shengbinduan666@gmail.com">shengbinduan666@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/ShengbinDuan">github.com/ShengbinDuan</a></p>
+  <!-- 顶部导航 -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <img src="https://avatars.githubusercontent.com/ShengbinDuan" alt="Shengbin Duan avatar" />
+        <div class="title">Shengbin Duan · 段圣斌</div>
+      </a>
+      <div class="toc">
+        <a href="#about">About</a>
+        <a href="#edu">Education</a>
+        <a href="#pubs">Publications</a>
+        <a href="#projects">Projects & Awards</a>
+        <a href="#skills">Skills</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
-  </div>
+  </nav>
 
-  <h2>About Me</h2>
-  <p>
-    硕士研究生（山西财经大学 / 中国科学院大学联合培养），研究方向：脑机接口（SSVEP、运动想象）、时间序列分析、跨模态智能、机器人控制。
-  </p>
+  <main id="top" class="wrap">
 
-  <h2>Publications</h2>
-  <ul>
-    <li>“Online Adaptation via Dual-Stage Alignment and Self-Supervision for Fast-Calibration BCI” (Under Review at IEEE T-PAMI) [<a href="http://arxiv.org/abs/2509.19403">arXiv</a>]</li>
-    <li>“Test-Time Learning for Inter-Subject Generalization in SSVEP-Based BCI”, ICIA 2025 (Best Paper Finalist)</li>
-    <li>“Transformer-Based Long Time Series Forecasting with Decoupled Information Extraction and Complementarity”, ICONIP 2024</li>
-  </ul>
+    <!-- 头图卡片 -->
+    <div class="hero card">
+      <img src="https://avatars.githubusercontent.com/ShengbinDuan" alt="Profile photo of Shengbin Duan">
+      <div>
+        <h1><b>Shengbin Duan</b> <span style="opacity:.85">（<b>段圣斌</b>）</span></h1>
+        <p>
+          <span class="pill">Brain–Computer Interface: <b>SSVEP</b> / <b>Motor Imagery</b></span>
+          &nbsp;<span class="pill">Time Series</span>
+          &nbsp;<span class="pill">Cross-Modal Intelligence</span>
+          &nbsp;<span class="pill">Robotics Control</span>
+        </p>
+        <p class="quick" style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
+          <a href="mailto:shengbinduan666@gmail.com" title="Email"><span>📧</span><b>Email</b></a>
+          <a href="https://github.com/ShengbinDuan" target="_blank" rel="noopener" title="GitHub"><span>💻</span><b>GitHub</b></a>
+          <a href="http://arxiv.org/abs/2509.19403" target="_blank" rel="noopener" title="T-PAMI under review preprint"><span>📄</span><b>arXiv</b></a>
+        </p>
+      </div>
+    </div>
 
-  <h2>Projects</h2>
-  <ul>
-    <li><b>在线非侵入式脑机接口与人机共享控制系统</b>：独立搭建 BCI 系统并集成至 VLA 模型，实现机械臂共享控制。</li>
-    <li><b>申昊杯研究生机器人创新大赛 2024</b>：一等奖，基于生成式模型的机器人技能学习框架。</li>
-    <li><b>2025 世界机器人大赛 - BCI 脑控机器人</b>：三等奖，担任队长，主导脑电信号解码与模型优化。</li>
-  </ul>
+    <!-- About -->
+    <section id="about" class="card">
+      <h2><span class="dot"></span> About Me</h2>
+      <p>
+        硕士研究生（<b>山西财经大学</b> / <b>中国科学院大学</b> 联合培养），研究方向涵盖：<b>脑机接口</b>（<b>SSVEP</b>、<b>运动想象</b>、在线学习、脑电大模型）、<b>时间序列分析</b>、<b>跨模态智能</b>与<b>机器人控制</b>。
+        研究兴趣包括脑机接口、人机交互、跨模态与多源信号融合（脑电等）以及在康复、娱乐等场景的应用探索。希望在博士阶段进一步深入**人机交互 × 脑机接口 × 智能机器人系统**的交叉研究。<span class="badge">Research-oriented</span> :contentReference[oaicite:1]{index=1}
+      </p>
+      <p style="margin-top:6px">
+        <b>基本信息：</b>1999 年生，籍贯山西，现居北京昌平区。联系方式：<a href="mailto:shengbinduan666@gmail.com"><b>shengbinduan666@gmail.com</b></a>；微信：<b>155-3446-6654</b>。个人主页 / GitHub：<a href="https://shengbinduan.github.io/" target="_blank" rel="noopener"><b>shengbinduan.github.io</b></a>。:contentReference[oaicite:2]{index=2}
+      </p>
+    </section>
 
-  <h2>Gallery</h2>
-  <p>一些进展：</p>
-  <img src="images/1.jpg " alt="ICIA2025 Best Conference Paper Finalists" width="400">
-  <img src="images/2.jpg " alt="ICIA2025" width="400">
-  <img src="images/3.jpg " alt="ICIA2025" width="400">
- 
+    <!-- 教育 + 快速概览 -->
+    <section id="edu" class="grid grid-2">
+      <div class="card">
+        <h2><span class="dot"></span> Education</h2>
+        <ul class="timeline">
+          <li class="t-item">
+            <div><b>硕士研究生</b>（计算机应用技术）· 信息学院，<b>山西财经大学</b></div>
+            <div class="when">2023.09 – 至今</div>
+          </li>
+          <li class="t-item">
+            <div><b>联合培养硕士研究生</b>· <b>中国科学院大学</b>（自动化所 HEAR<span style="text-transform:lowercase">T</span> 组/侯增广团队）</div>
+            <div class="when">2024.06 – 至今</div>
+          </li>
+          <li class="t-item">
+            <div><b>学士</b>（计算机科学与技术）· <b>晋中学院</b></div>
+            <div class="when">2018.09 – 2022.07</div>
+          </li>
+        </ul>
+        <p style="margin-top:10px; color:var(--muted)">
+          指导老师：郝剑龙老师（机器学习金融组）；联合培养合作：周小虎老师 HEAR<span style="text-transform:lowercase">T</span> 组 / 侯增广老师团队。:contentReference[oaicite:3]{index=3}
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="dot"></span> At a Glance</h2>
+        <ul style="list-style: none; padding-left: 0; margin: 0">
+          <li>📚 <b>3+</b> 篇论文（含 <b>IEEE T-PAMI</b> 审稿中、<b>ICIA 2025</b>、<b>ICONIP 2024</b>）。</li>
+          <li>🤝 BCI × VLA 共享控制、在线学习（<b>TTA/TTT</b>）、多方法融合增强。</li>
+          <li>🏆 申昊杯研究生机器人创新大赛 <b>一等奖</b>；FLAME Technical Challenge <b>Runners-Up</b>；世界机器人大赛（BCI）<b>三等奖</b>。:contentReference[oaicite:4]{index=4}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="pubs" class="card">
+      <h2><span class="dot"></span> Publications</h2>
+      <ol style="margin-left: 18px">
+        <li>
+          <b>Online Adaptation via Dual-Stage Alignment and Self-Supervision for Fast-Calibration BCI</b>
+          — <i>under review</i> at <b>IEEE T-PAMI</b>.
+          [<a href="http://arxiv.org/abs/2509.19403" target="_blank" rel="noopener"><b>arXiv</b></a>]
+          <span class="badge">Online BCI</span> <span class="badge">Dual-Stage Alignment</span> :contentReference[oaicite:5]{index=5}
+        </li>
+        <li>
+          <b>Test-Time Learning for Inter-Subject Generalization in SSVEP-Based BCI</b>,
+          <b>ICIA 2025</b> — <b>Best Paper Finalist</b>. <span class="badge">SSVEP</span> <span class="badge">TTL/TTA</span>
+        </li>
+        <li>
+          <b>Transformer-Based Long Time Series Forecasting with Decoupled Information Extraction and Complementarity</b>,
+          <b>ICONIP 2024</b>（CCF-C，已发表）。 <span class="badge">Time Series</span> :contentReference[oaicite:6]{index=6}
+        </li>
+        <li>
+          <b>Learning Novel Skills from Language-Generated Demonstrations</b>,
+          <b>ICLR 2025</b>. <i>(submission)</i> <span class="badge">VLA</span> <span class="badge">Robotics</span> :contentReference[oaicite:7]{index=7}
+        </li>
+        <li>
+          <b>Parallels Between VLA Model Post-Training and Human Motor Learning: Progress, Challenges, and Trends</b>,
+          <i>under review</i> at <b>IEEE TAI</b>. <span class="badge">Robotics Learning</span> :contentReference[oaicite:8]{index=8}
+        </li>
+      </ol>
+    </section>
+
+    <!-- Projects & Awards -->
+    <section id="projects" class="grid grid-2">
+      <div class="card">
+        <h2><span class="dot"></span> Projects</h2>
+        <ul>
+          <li>
+            <b>在线非侵入式脑机接口与人机共享控制系统</b>（2024 – 至今）
+            <ul>
+              <li>独立搭建 Online <b>SSVEP & Motor-Imagery</b> 系统（频段 8–15 Hz），并融合运动想象范式以提升自由度。</li>
+              <li>将 BCI 接口集成进 <b>VLA（RT-1）</b> 模型实现共享控制，完成六自由度机械臂高效控制。</li>
+              <li>协同策略：<b>VLA</b> 负责多步任务规划，<b>BCI</b> 在关键节点介入决策，显著增强响应效率与稳定性。</li>
+            </ul>
+            <span class="badge">BCI</span> <span class="badge">RT-1</span> <span class="badge">Shared Control</span> :contentReference[oaicite:9]{index=9}
+          </li>
+          <li>
+            <b>IEEE CIS FLAME Technical Challenge 2024</b>（2024.12）
+            <div class="pill">A Robotics Skills Learning Framework from Natural Language to Manipulation Skills — <b>Runners-Up Award $1,000</b></div> :contentReference[oaicite:10]{index=10}
+          </li>
+          <li>
+            <b>2025 世界机器人大赛 — BCI 脑控机器人</b>（2025.07）
+            <div class="pill"><b>三等奖</b> · 赛项：基于非侵入式脑机接口的运动康复训练技术与系统 · 担任队长，主导解码平台与模型、多方法增强与融合。</div> :contentReference[oaicite:11]{index=11}
+          </li>
+          <li>
+            <b>申昊杯研究生机器人创新大赛 2024</b>（2024.11）
+            <div class="pill"><b>一等奖</b> · 课题：从自然语言到机器人操作技能 · 负责关键实验/数据/训练与材料撰写。</div> :contentReference[oaicite:12]{index=12}
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="dot"></span> Highlights</h2>
+        <ul style="margin-top:6px">
+          <li><b>BCI × VLA</b> 共享控制，面向康复与人机协作场景。</li>
+          <li>在线学习（<b>TTA/TTT</b>）、跨被试泛化、少/零校准。</li>
+          <li>多模型融合与数据增强 pipeline，稳定迭代刷榜。</li>
+        </ul>
+        <p style="margin:.4rem 0 0; color:var(--muted)">
+          工程实践：EEG 采集与在线处理、机械臂控制（仿真+实物）与 VLA/RT-1 集成；跨学科协作与科研写作。:contentReference[oaicite:13]{index=13}
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="card">
+      <h2><span class="dot"></span> Skills</h2>
+      <div class="grid grid-3">
+        <div>
+          <h3 style="margin:0 0 8px; font-weight:800">编程与平台</h3>
+          <ul>
+            <li><b>Python</b>、<b>Matlab</b>；Numpy / SciPy / scikit-learn / MNE / EEGLAB / Matplotlib。</li>
+            <li>深度学习：<b>PyTorch</b>、TensorFlow。</li>
+            <li>系统：Windows / Linux / WSL。</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px; font-weight:800">研究兴趣</h3>
+          <ul>
+            <li>BCI（<b>SSVEP</b> / <b>Motor Imagery</b>）、在线学习（<b>Online-Learning / TTA / TTT</b>）。</li>
+            <li>时间序列建模、跨模态智能、机器人。</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px; font-weight:800">其他</h3>
+          <ul>
+            <li>合作与表达：跨学科协作、Poster/Oral/答辩/项目书写作。</li>
+            <li>英语：已通过四级，备考雅思 ing…；兴趣：骑车/音乐/篮球/健身。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2><span class="dot"></span> Gallery</h2>
+      <p>一些进展：</p>
+      <div class="gallery">
+        <img src="images/1.jpg" alt="ICIA 2025 Best Conference Paper Finalists">
+        <img src="images/2.jpg" alt="ICIA 2025 Conference">
+        <img src="images/3.jpg" alt="ICIA 2025 Scene">
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card">
+      <h2><span class="dot"></span> Contact</h2>
+      <p>
+        <b>Email：</b> <a href="mailto:shengbinduan666@gmail.com"><b>shengbinduan666@gmail.com</b></a><br/>
+        <b>GitHub：</b> <a href="https://github.com/ShengbinDuan" target="_blank" rel="noopener"><b>github.com/ShengbinDuan</b></a><br/>
+        <b>Location：</b> 北京市 · 昌平区（可长期科研/竞赛合作）<br/>
+        <span class="badge">Open to Research Collaboration</span>
+      </p>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Shengbin Duan · 段圣斌 — Built with ❤️ for research & robotics.
+    </footer>
+  </main>
+
+  <script>
+    // 动态年份
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
